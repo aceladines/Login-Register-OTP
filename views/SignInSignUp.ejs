@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity - Magpantay</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+<body>
+<div class="container">
+    <div class="blueBg">
+        <div class="box signin">
+            <h2>Already have an account?</h2>
+            <button class="signinBtn">Sign In</button>
+        </div>
+        <div class="box signup">
+            <h2>Don't have an account?</h2>
+            <button class="signupBtn">Sign Up</button>
+        </div>
+    </div>
+    <div class="formBx">
+        <div class="form signinForm">
+            <form action="/login" method="POST">
+                <h3>Sign In</h3>
+                <input type="text" placeholder="Username" name="username" required>
+                <input type="password" placeholder="Password" name="password" required>
+                <input type="submit" value="Login">
+            </form>
+        </div>
+        <div class="form signupForm">
+            <form action="/signup" method="POST">
+                <h3>Sign Up</h3>
+                <span id="messagebox"></span>
+                <input type="text" placeholder="Username" name="username" id="username" required>
+                <input type="email" placeholder="Email Address" name="email" id="email" required>
+                <input type="password" placeholder="Password" id="password" onkeyup="check()" required>
+                <input type="password" placeholder="Confirm Password" name="cpassword" id="cpassword" onkeyup="check()" required>
+                <input type="submit" value="Register" id="submit" disabled>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    const signinBtn = document.querySelector('.signinBtn');
+    const signupBtn = document.querySelector('.signupBtn');
+    const formBx = document.querySelector('.formBx');
+    const body = document.querySelector('body');
+
+    signupBtn.onclick = function(){
+        formBx.classList.add('active')
+        body.classList.add('active')
+    }
+    signinBtn.onclick = function(){
+        formBx.classList.remove('active')
+        body.classList.remove('active')
+    }
+
+    const check = () =>{
+        let pMatch = document.getElementById('password').value === document.getElementById('cpassword').value;
+        let pLength = (document.getElementById('password').value.length && document.getElementById('cpassword').value.length) > 7
+        document.getElementById('submit').disabled = !(pMatch && pLength)
+
+        if(!pMatch) document.getElementById('messagebox').innerHTML = "Password does not match!"
+        if(!pLength) document.getElementById('messagebox').innerHTML = "Minimum password length must be 8!"
+        if(!pMatch && !pLength) document.getElementById('messagebox').innerHTML = "Password does not match! & Minimum password length must be 8!"
+        if(pMatch && pLength) document.getElementById('messagebox').innerHTML = ""
+    }
+</script>
+
+</body>
+</html>
